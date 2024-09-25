@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create a New Post</title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <div class="container mt-3" > 
+        <h1> Enter information: </h1>
+        <hr>
+        <form action="/review" method="POST"> 
+            <div class="row g-3">
+                <div class="col-sm-6">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required="" pwa2-uuid="EDITOR/input-620-B7C-E9D95-1A8" pwa-fake-editor="">
+                <div class="invalid-feedback">
+                    Valid first name is required.
+                </div>
+                </div>
+
+                <div class="col-sm-6">
+                <label for="date" class="form-label">Date</label>
+                <input type="text" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" required="" pwa2-uuid="EDITOR/input-4B3-AE5-3D52D-B8D" pwa-fake-editor="">
+                <div class="invalid-feedback">
+                    Valid last name is required.
+                </div>
+                </div>
+
+                <div class="col-sm-12">
+                <label for="season" class="form-label">Season</label>
+                <select class="form-select" id="season" name="season" type= "form-select">
+                    <option value="">Choose...</option>
+                    <option value="fall">fall</option>
+                    <option value="spring">spring</option>
+                    <option value="summer">summer</option>
+                    <option value="winter">winter</option>
+                </select>
+                </div>
+
+                <div class="col-sm-6">
+                <label for="year" class="form-label"> Year <span class="text-body-secondary"> (Released)</span></label>
+                <input type="text" class="form-control" id="year" name="year" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label for="genres">Genre(s)</label>
+                    <select multiple class="form-control" id="genres" name="genres">
+                      <option value="action">action</option>
+                      <option value="adventure">adventure</option>
+                      <option value="comedy">comedy</option>
+                      <option value="drama">drama</option>
+                      <option value="ecchi">ecchi</option>
+                      <option value="fantasy">fantasy</option>
+                      <option value="game">game</option>
+                      <option value="harem">harem</option>
+                      <option value="historical">historical</option>
+                      <option value="horror">horror</option>
+                      <option value="isekai">isekai</option>
+                      <option value="magic">magic</option>
+                      <option value="martial arts">martial arts</option>
+                      <option value="mecha">mecha</option>
+                      <option value="music">music</option>
+                      <option value="mystery">mystery</option>
+                      <option value="psychological">psychological</option>
+                      <option value="romance">romance</option>
+                      <option value="school">school</option>
+                      <option value="shounen">shounen</option>
+                      <option value="slice of life">slice of life</option>
+                      <option value="thriller">thriller</option>
+                      <option value="sports">sports</option>
+
+                    </select>
+                  </div>
+
+                <div class="form-group">
+                    <label for="summary" class="form-label">Summary</label>
+                    <textarea class="form-control" id="summary" name="summary" rows="4" required=""></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="thoughts" class="form-label">Personal Thoughts</label>
+                    <textarea class="form-control" id="thoughts" name="thoughts" rows="4" required=""></textarea>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="rating" class="form-label">Rating <span class="text-body-secondary"> (/10)</span></label>
+                    <input type="number" class="form-control" id="rating" name="rating" min="0" max="10" required="" pwa2-uuid="EDITOR/input-DD2-11E-56571-444" pwa-fake-editor="">
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="image" class="form-label">Image <span class="text-body-secondary"> (link)</span></label>
+                    <input type="text" class="form-control" id="image" name="image" pwa2-uuid="EDITOR/input-DD2-11E-56571-444" pwa-fake-editor="">
+                </div>
+                <div class="col-sm-12">
+                    <button class="btn-primary" type="submit"> Submit </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <%- include("partials/footer.ejs") %> 
+</body>
+</html>
