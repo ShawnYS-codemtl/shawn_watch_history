@@ -26,7 +26,7 @@
                 </div>
                 </div>
 
-                <div class="col-sm-12">
+                <div class="col-sm-3">
                 <label for="season" class="form-label">Season</label>
                 <select class="form-select" id="season" name="season" type= "form-select">
                     <option value="">Choose...</option>
@@ -37,40 +37,34 @@
                 </select>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                 <label for="year" class="form-label"> Year <span class="text-body-secondary"> (Released)</span></label>
                 <input type="text" class="form-control" id="year" name="year" placeholder="">
                 </div>
 
-                <div class="form-group">
-                    <label for="genres">Genre(s)</label>
-                    <select multiple class="form-control" id="genres" name="genres">
-                      <option value="action">action</option>
-                      <option value="adventure">adventure</option>
-                      <option value="comedy">comedy</option>
-                      <option value="drama">drama</option>
-                      <option value="ecchi">ecchi</option>
-                      <option value="fantasy">fantasy</option>
-                      <option value="game">game</option>
-                      <option value="harem">harem</option>
-                      <option value="historical">historical</option>
-                      <option value="horror">horror</option>
-                      <option value="isekai">isekai</option>
-                      <option value="magic">magic</option>
-                      <option value="martial arts">martial arts</option>
-                      <option value="mecha">mecha</option>
-                      <option value="music">music</option>
-                      <option value="mystery">mystery</option>
-                      <option value="psychological">psychological</option>
-                      <option value="romance">romance</option>
-                      <option value="school">school</option>
-                      <option value="shounen">shounen</option>
-                      <option value="slice of life">slice of life</option>
-                      <option value="thriller">thriller</option>
-                      <option value="sports">sports</option>
+                <div class="col-sm-3">
+                    <label for="platform" class="form-label"> Platform </label>
+                    <input type="text" class="form-control" id="platform" name="platform" placeholder="Ex: Netflix">
+                </div>
 
+                <div class="col-sm-3">
+                    <label for="episodes" class="form-label"> Episodes </label>
+                    <input type="number" class="form-control" id="episodes" min="1" name="episodes" placeholder="">
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label for="genres">Genre(s)</label>
+                    <select multiple class="form-control" name="genres" id="genres">
+                        <% genres.forEach(function(genre) { %>
+                            <option value="<%= genre %>"><%= genre %></option>
+                        <% }); %>
                     </select>
                   </div>
+
+                <div class="col-sm-6">
+                    <label for="platform" class="form-label"> Other <span class="text-body-secondary"> (Genre) </span></label>
+                    <input type="text" class="form-control" id="other" name="other" placeholder="">
+                </div>
 
                 <div class="form-group">
                     <label for="summary" class="form-label">Summary</label>
