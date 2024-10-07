@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Post</title>
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <div class="container mt-3" > 
+        <h1> Enter information: </h1>
+        <hr>
+        <form action="/edit/<%= post.id %>" method="POST"> 
+            <div class="row g-3">
+                <div class="col-sm-6">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required="" value="<%= post.title %>"pwa2-uuid="EDITOR/input-620-B7C-E9D95-1A8" pwa-fake-editor="">
+                </div>
+
+                <div class="col-sm-6">
+                <label for="date" class="form-label">Date</label>
+                <input type="text" class="form-control" id="date" name="date" value="<%= post.post_date %>" placeholder="YYYY-MM-DD" required="" pwa2-uuid="EDITOR/input-4B3-AE5-3D52D-B8D" pwa-fake-editor="">
+                </div>
+
+                <div class="col-sm-3">
+                <label for="season" class="form-label">Season</label>
+                <select class="form-select" id="season" name="season" value="<%= post.season %>"type= "form-select">
+                    <option value="">Choose...</option>
+                    <option value="fall">fall</option>
+                    <option value="spring">spring</option>
+                    <option value="summer">summer</option>
+                    <option value="winter">winter</option>
+                </select>
+                </div>
+
+                <div class="col-sm-3">
+                <label for="year" class="form-label"> Year <span class="text-body-secondary"> (Released)</span></label>
+                <input type="text" class="form-control" id="year" value="<%= post.release_year %>" name="year" placeholder="">
+                </div>
+
+                <div class="col-sm-3">
+                    <label for="platform" class="form-label"> Platform </label>
+                    <input type="text" class="form-control" id="platform" name="platform" placeholder="Ex: Netflix">
+                </div>
+
+                <div class="col-sm-3">
+                    <label for="episodes" class="form-label"> Episodes </label>
+                    <input type="number" class="form-control" id="episodes" min="1" value="<%= post.platform %>" name="episodes" placeholder="">
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label for="genres">Genre(s)</label>
+                    <select multiple class="form-control" name="genres" id="genres">
+                        <% genres.forEach(function(genre) { %>
+
+                            <option value="<%= genre %>"
+                                <%= preselectedGenres.includes(genre) ? 'selected' : '' %> >
+                                <%= genre %>
+                            </option>
+                        <% }); %>
+                    </select>
+                  </div>
+
+                <div class="col-sm-6">
+                    <label for="platform" class="form-label"> Other <span class="text-body-secondary"> (Genre) </span></label>
+                    <input type="text" class="form-control" id="other" name="other" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label for="summary" class="form-label">Summary</label>
+                    <textarea class="form-control" id="summary" name="summary" rows="4" required=""><%= post.summary %></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="thoughts" class="form-label">Personal Thoughts</label>
+                    <textarea class="form-control" id="thoughts" name="thoughts" rows="4" required=""> <%= post.personal_thoughts %></textarea>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="rating" class="form-label">Rating <span class="text-body-secondary"> (/10)</span></label>
+                    <input type="number" class="form-control" id="rating" name="rating" value="<%= post.rating %>" min="0" max="10" required="" pwa2-uuid="EDITOR/input-DD2-11E-56571-444" pwa-fake-editor="">
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="image" class="form-label">Image <span class="text-body-secondary"> (link)</span></label>
+                    <input type="text" class="form-control" id="image" name="image" value="<%= post.image %>" pwa2-uuid="EDITOR/input-DD2-11E-56571-444" pwa-fake-editor="">
+                </div>
+                <div class="col-sm-12">
+                    <button class="btn-primary" type="submit"> Submit </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <%- include("partials/footer.ejs") %> 
+</body>
+</html>
