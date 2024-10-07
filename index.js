@@ -23,7 +23,7 @@ async function getAnime() {
     let anime = [];
     const result = await db.query("SELECT * from anime");
     anime = result.rows;
-    console.log(anime);
+    //console.log(anime);
     return anime;
 }
 
@@ -52,6 +52,40 @@ app.get("/new", async (req, res) => {
     res.render("new.ejs", { genres });
 });
 
+// Route to display the edit form
+app.get('/edit/:id', async (req, res) => {
+    const postId = req.params.id;
+    console.log(postId);
+    const anime = await getAnime();
+    const post = anime.find(p => p.id == postId);
+    const result = await db.query("SELECT name FROM genre ORDER BY name ASC");
+    const genres = result.rows.map(row => row.name);  // Extract the genre names
+    const postGenreIdResult = await db.query('SELECT gid FROM anime_genre WHERE aid = $1', [req.params.id]);  // Get already selected genres
+    const postGenresIds = postGenreIdResult.rows.map(row => row.gid);
+    const preselectedGenres = await db.query('SELECT * FROM genre WHERE gid = ANY($1)', [postGenresIds]);
+    //console.log(genres);
+    //console.log(preselectedGenres);
+    
+    if (post) {
+        res.render('edit.ejs', { post: post, genres, preselectedGenres: preselectedGenres.rows.map(row => row.name)});
+    } else {
+        res.status(404).send('Post not found');
+    }
+});
+
+// Route to handle the edit form submission
+app.post('/edit/:id', (req, res) => {
+    const postId = req.params.id;
+    const postIndex = posts.findIndex(p => p.id == postId);
+    if (postIndex !== -1) {
+        posts[postIndex].title = req.body.title;
+        posts[postIndex].content = req.body.content;
+        res.redirect('/');
+    } else {
+        res.status(404).send('Post not found');
+    }
+});
+
 // Handle form submission
 app.post('/review', async (req, res) => {
 
@@ -66,7 +100,7 @@ app.post('/review', async (req, res) => {
       rating: req.body.rating, 
       other: req.body.other 
     };
-    console.log(req.body);
+    //console.log(req.body);
     const result = await db.query("INSERT INTO anime (title, post_date, season, release_year, personal_thoughts, summary, image, rating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
          [newReview.title, newReview.date, newReview.season, newReview.year, newReview.thoughts, newReview.summary, newReview.image, newReview.rating]);
     const id = result.rows[0].id;
@@ -76,7 +110,7 @@ app.post('/review', async (req, res) => {
         genres.push(newReview.other);
         // insert into new.ejs form a new option with value and label of the 'other' genre
     }
-    console.log(req.body.genres);
+    //console.log(req.body.genres);
     genreToAnime(genres, id);
     res.redirect("/");
   });
