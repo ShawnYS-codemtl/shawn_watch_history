@@ -40,14 +40,25 @@
         <% if (locals.anime) {%>
             <% anime.forEach((a) => { %>
                 <h3 class="pb-4 mb-4 fst-italic border-bottom"> <%= a.title %> </h3>
-                <img src="<%= a.image %>" alt= "<%= a.title %>">
-                <p class="blog-post-meta"> Genre: <%= a.genre %> </p>
-                <p class="blog-post-meta"> Premiered: <%= a.season  %> <%= a.release_year %> </p>
-                <p class="blog-post-meta"> My rating: <%= a.rating %> </p>
-                
-                <p> <%= a.summary %></p>
-                <p> <%= a.personal_thoughts %></p>
+                <div class="post-header mb-4">
+                    <img class="mr-4"src="<%= a.image %>" style="width: 300px; height: auto;" alt= "<%= a.title %>">
+                    <div style="margin-left: 20px">
+                        <p class="blog-post-meta"> Genre: <%= a.genres %> </p>
+                        <p class="blog-post-meta"> Premiered: <%= a.season  %> <%= a.release_year %> </p>
+                        <p class="blog-post-meta"> My rating: <%= a.rating %> </p>
+                    </div>
+                </div>
+                <h5> Summary: </h5>
+                <em> <%= a.summary %> </em> 
+                <p></p>
+                 
+                <h5>Plot:</h5>
+                <em> <%= a.personal_thoughts %> </em>
                 <p> <%= a.post_date %> </p>
+                <a href="/edit/<%= a.id%>">
+                <button class="btn btn-primary">Edit post
+                </button>
+                </a>
             <% }); %>
         <%} %>
         
@@ -57,6 +68,7 @@
             NEW POST
             </button>
         </a> 
+        <hr>
         
 
         <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, lists, tables, images, code, and more are all supported as expected.</p>
