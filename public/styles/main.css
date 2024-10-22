@@ -6,3 +6,8 @@
     display: flex;
     justify-content: flex-start;
 }
+
+.edit-delete-row {
+    display: flex;
+    gap: 15px;
+}
