@@ -54,11 +54,18 @@
                  
                 <h5>Plot:</h5>
                 <em> <%= a.personal_thoughts %> </em>
-                <p> <%= a.post_date %> </p>
-                <a href="/edit/<%= a.id%>">
-                <button class="btn btn-primary">Edit post
-                </button>
-                </a>
+                <p> <%= a.post_date.toISOString().slice(0, 10) %> </p>
+                <div class="edit-delete-row">
+                  <a href="/edit/<%= a.id%>">
+                  <button class="btn btn-primary">EDIT
+                  </button>
+                  </a>
+                  <form action="/delete/<%= a.id %>" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </div>
+                <hr>
+                <hr>
             <% }); %>
         <%} %>
         
@@ -68,6 +75,7 @@
             NEW POST
             </button>
         </a> 
+      
         <hr>
         
 
