@@ -20,11 +20,20 @@ const db = new pg.Client({
   db.connect();
 
 async function getAnime() {
-    let anime = [];
-    const result = await db.query("SELECT * from anime");
-    anime = result.rows;
-    //console.log(anime);
-    return anime;
+    console.log("getting anime");
+    const result = await db.query(
+        `
+        SELECT a.id, a.title, a.image, a.season, a.release_year, 
+               a.rating, a.post_date, a.personal_thoughts, a.summary, a.platform, a.nb_episodes,
+               COALESCE(array_agg(g.name) FILTER (WHERE g.name IS NOT NULL), '{}') AS genres
+        FROM anime a
+        LEFT JOIN anime_genre ag ON a.id = ag.aid
+        LEFT JOIN genre g ON ag.gid = g.gid
+        GROUP BY a.id
+        `
+    );
+    console.log(result.rows);
+    return result.rows;
 }
 
 async function genreToAnime(genres, id) {
@@ -34,7 +43,7 @@ async function genreToAnime(genres, id) {
     
     // Iterate over the resulting rows and insert into anime_genre
     for (const genre of result.rows) {
-        await db.query("INSERT INTO anime_genre (aid, gid) VALUES($1, $2)", [id, genre.gid]);
+        await db.query("INSERT INTO anime_genre (aid, gid) VALUES($1, $2) ON CONFLICT (aid, gid) DO NOTHING", [id, genre.gid]);
     }
 }
 
@@ -55,7 +64,7 @@ app.get("/new", async (req, res) => {
 // Route to display the edit form
 app.get('/edit/:id', async (req, res) => {
     const postId = req.params.id;
-    console.log(postId);
+
     const anime = await getAnime();
     const post = anime.find(p => p.id == postId);
     const result = await db.query("SELECT name FROM genre ORDER BY name ASC");
@@ -98,6 +107,7 @@ app.post('/edit/:id', async (req, res) => {
         genres.push(updatedReview.other);
         // insert into new.ejs form a new option with value and label of the 'other' genre
     }
+    const result2 = await db.query("DELETE from anime_genre WHERE aid=$1",[postId]); 
     genreToAnime(genres, postId);
     res.redirect("/");
 });
